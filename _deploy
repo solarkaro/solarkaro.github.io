@@ -1,0 +1,31 @@
+#!/bin/bash
+
+echo "Beging to compile Harp"
+
+PROJ_DIR=.
+echo "Project Directory: $PROJ_DIR"
+
+mkdir $PROJ_DIR/.build
+harp compile $PROJ_DIR/_harp $PROJ_DIR/.build/
+if [ $? -ne 0 ]; then
+    echo "Harp compilation failed. Aborting push"
+    rm -r $PROJ_DIR/.build
+    echo 1
+fi
+yes | cp -Rf $PROJ_DIR/.build/* $PROJ_DIR/
+echo "Compilation successful."
+
+# Check if build has produced changes
+if [[ $(git ls-files -m) ]]; then
+    echo "Compilation has produced new files. Saving them"
+
+    # Now that compilation is finished, create a git commit
+    # git add --all $PROJ_DIR
+    # git commit -m 'Automatic Compilation'
+    # git push origin master
+else
+    echo "Compilation did not produce any new files. Continue doing a git push manually for deploying"
+fi
+
+rm -r $PROJ_DIR/.build
+exit 0

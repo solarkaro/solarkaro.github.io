@@ -1,0 +1,15 @@
+mixin tree(head, tail)
+  for val, key in head
+    if key !== '.git' && key !== '_data'
+      if key == '_contents'
+        each file in val
+          if /(\.html$)/.test(file)
+            - prio = 1
+            url
+              loc= "https://www.solarkaro.com" + tail + file
+              priority= prio
+      else
+        mixin tree(val, tail + key + "/")
+doctype xml
+urlset(xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
+    mixin tree(public, "/")
