@@ -1,9 +1,31 @@
 $lora-font: 'Lora', serif
+$montserrat-font: 'Montserrat'
 
 $screen-sm: "screen and (max-width: 992px)"
 
+$text-color: #eee
+
 body
   font-family: $lora-font
+  height: 100%
+  width: 100%
+  background-color: #333
+  color: $text-color
+
+  a
+    color: $text-color
+
+    &:hover
+      color: #ddd
+
+.logo
+  font-family: $montserrat-font
+  &:before
+    content: "SOLAR"
+    color: #EB7D51
+  &:after
+    content: "KARO"
+    color: #9d9940
 
 .top-buffer
   margin-top: 25px
